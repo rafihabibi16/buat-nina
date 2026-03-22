@@ -1,0 +1,857 @@
+
+  :root {
+    --rose: #c0392b;
+    --blush: #f8e1e4;
+    --cream: #fdf6f0;
+    --dark: #1a0a0a;
+    --gold: #c9a84c;
+    --soft: #7d4e57;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1.2rem 2rem;
+    background: rgba(253,246,240,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(192,57,43,0.15);
+  }
+
+  nav button {
+    background: none;
+    border: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--soft);
+    cursor: pointer;
+    padding: 0.4rem 1.2rem;
+    border-radius: 30px;
+    transition: all 0.3s;
+    letter-spacing: 0.04em;
+  }
+
+  nav button.active, nav button:hover {
+    background: var(--rose);
+    color: #fff;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; padding-top: 80px; min-height: 100vh; }
+  .page.active { display: block; animation: fadeIn 0.7s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(192,57,43,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    line-height: 1.1;
+    color: var(--rose);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 em { color: var(--dark); font-style: italic; }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--soft);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  @keyframes floatPhoto {
+    0% {
+      opacity: 0;
+      transform: translate(-10vw, 110vh) rotate(0deg); /* Mulai dari kiri bawah luar layar */
+    }
+    10% { opacity: 0.7; } /* Muncul perlahan */
+    50% { transform: translate(50vw, 50vh) rotate(180deg) scale(1.1); } /* Ke tengah layar sambil muter & gede dikit */
+    90% { opacity: 0.5; }
+    100% {
+      opacity: 0;
+      transform: translate(110vw, -10vh) rotate(360deg); /* Hilang ke kanan atas luar layar */
+    }
+  }
+
+  /* ── FLOATING HEARTS ── */
+  .hearts {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -60px;
+    font-size: 1.4rem;
+    opacity: 0;
+    animation: floatUp linear infinite;
+  }
+
+  @keyframes floatUp {
+    0%   { opacity: 0;   transform: translateY(0)    rotate(0deg); }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { opacity: 0;   transform: translateY(-110vh) rotate(30deg); }
+  }
+
+  .snow-heart {
+  position: fixed;
+  top: -10px;
+  color: #ffb6c1;
+  font-size: 10px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to { transform: translateY(105vh); }
+}
+
+  /* ── PHOTO GRID ── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--rose);
+    text-align: center;
+    margin: 3rem 0 1.5rem;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 0.6rem auto 0;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
+    padding: 0 2rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .photo-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 6px 24px rgba(192,57,43,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .photo-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 16px 40px rgba(192,57,43,0.2);
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--blush), #fce4ec);
+    color: var(--soft);
+    font-size: 3rem;
+    gap: 0.5rem;
+    border: 2px dashed rgba(192,57,43,0.25);
+    border-radius: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-placeholder input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 0;
+  }
+
+  .photo-placeholder span {
+    font-size: 0.75rem;
+    font-family: 'Lato', sans-serif;
+    color: var(--soft);
+    letter-spacing: 0.05em;
+  }
+
+  .photo-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .photo-caption {
+    padding: 0.8rem 1rem;
+    font-size: 0.82rem;
+    color: var(--soft);
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ── BIO TEXT ── */
+  .bio-section {
+    max-width: 680px;
+    margin: 0 auto 3rem;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(192,57,43,0.09);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bio-section::before {
+    content: '❝';
+    position: absolute;
+    top: -0.4rem;
+    left: 1.2rem;
+    font-size: 6rem;
+    color: var(--blush);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .bio-text {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: #4a3040;
+    position: relative;
+    z-index: 1;
+    white-space: pre-line;
+  }
+
+  /* editable */
+  [contenteditable] {
+    outline: none;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  [contenteditable]:focus {
+    background: rgba(192,57,43,0.04);
+  }
+  [contenteditable]:empty::before {
+    content: attr(data-placeholder);
+    color: #c9a8b2;
+    pointer-events: none;
+  }
+
+  /* ── STATS ROW ── */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1rem 2rem 3rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .stat {
+    text-align: center;
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(192,57,43,0.09);
+    min-width: 130px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--rose);
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    color: var(--soft);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* ── APOLOGY PAGE ── */
+  .apology-hero {
+    text-align: center;
+    padding: 5rem 2rem 2rem;
+    background: linear-gradient(180deg, #fff0f3 0%, var(--cream) 100%);
+  }
+
+  .apology-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    color: var(--dark);
+    line-height: 1.2;
+  }
+
+  .apology-hero h1 span { color: var(--rose); }
+
+  /* ── VIDEO BOX ── */
+  .video-section {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+
+  .video-box {
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--dark);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+    position: relative;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+  }
+
+  .video-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .video-placeholder .icon { font-size: 3.5rem; }
+
+  .video-placeholder p {
+    font-size: 0.9rem;
+    max-width: 260px;
+    line-height: 1.6;
+  }
+
+  .upload-btn {
+    background: var(--rose);
+    color: #fff;
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 30px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .upload-btn:hover { background: #a93226; transform: scale(1.04); }
+
+  .upload-btn input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* ── LETTER ── */
+  .letter-wrap {
+    max-width: 680px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+  }
+
+  .letter {
+    background: #fff;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 8px 40px rgba(192,57,43,0.1);
+    position: relative;
+    border-top: 4px solid var(--rose);
+  }
+
+  .letter-date {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .letter-body {
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #3d2030;
+    min-height: 200px;
+    white-space: pre-line;
+  }
+
+  .letter-sig {
+    margin-top: 2rem;
+    text-align: right;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--rose);
+  }
+
+  /* ── APOLOGY PHOTOS ── */
+  .apology-photos {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+  }
+
+  .apology-photos .photo-grid {
+    padding: 0;
+  }
+
+  /* ── ADD PHOTO BTN ── */
+  .add-photo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.5rem auto 0;
+    padding: 0.75rem 2rem;
+    background: none;
+    border: 2px dashed var(--rose);
+    border-radius: 30px;
+    color: var(--rose);
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .add-photo-btn:hover {
+    background: var(--blush);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 3rem 2rem 4rem;
+    color: var(--soft);
+    font-size: 0.85rem;
+    line-height: 2;
+  }
+
+  footer .big-heart {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Container Grid */
+/* ── CSS GRID FOTO (KEREN & ESTETIK) ── */
+
+/* Wadah Utama Grid */
+.photo-grid {
+  display: grid;
+  /* Membuat kolom otomatis, minimal 200px agar tidak kebesaran */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem; /* Jarak antar foto */
+  padding: 0 2rem 2rem; /* Padding samping dan bawah */
+  max-width: 1000px; /* Lebar maksimal grid agar tidak terlalu melebar */
+  margin: 0 auto; /* Tengah-tengah layar */
+  position: relative;
+  z-index: 2; /* Di atas foto terbang */
+}
+
+/* Bingkai Foto (Item Grid) */
+.photo-item {
+  margin: 0;
+  background: #fff;
+  border-radius: 16px; /* Sudut melengkung halus */
+  overflow: hidden; /* Konten yang keluar bingkai dipotong */
+  box-shadow: 0 6px 20px rgba(192,57,43,0.1); /* Bayangan lembut warna blush */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animasi halus pas di-hover */
+  cursor: pointer;
+}
+
+/* Efek Keren Pas Kursor Dekat */
+.photo-item:hover {
+  transform: translateY(-8px) scale(1.03); /* Sedikit naik dan membesar */
+  box-shadow: 0 16px 40px rgba(192,57,43,0.25); /* Bayangan lebih tebal */
+}
+
+/* Ukuran Foto di dalam Bingkai */
+.photo-item img {
+  width: 100%;
+  height: 220px; /* Tinggi seragam agar rapi */
+  object-fit: cover; /* Biar foto tidak penyet/melebar */
+  display: block;
+}
+
+/* Gaya Tulisan Keterangan (Caption) */
+.photo-item figcaption {
+  padding: 0.8rem 1rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--soft);
+  font-style: italic; /* Tulisan miring seperti surat cinta */
+  background: #f9f9f9;
+  border-top: 1px solid #eee; /* Garis pemisah tipis */
+  line-height: 1.5;
+}
+
+/* Menghapus outline biru bawaan browser saat caption diedit */
+[contenteditable]:focus {
+  outline: none;
+  background: rgba(192,57,43,0.04); /* Highlight tipis pas difokuskan */
+  border-radius: 8px;
+}
+
+/* Placeholder kalau caption kosong (biar rapi) */
+[contenteditable]:empty::before {
+  content: attr(data-placeholder);
+  color: #c9a8b2;
+}
+
+/* ── RESPONSIVE HP (Media Query) ── */
+@media (max-width: 600px) {
+  .photo-grid {
+    grid-template-columns: repeat(2, 1fr); /* Otomatis jadi 2 kolom di HP */
+    gap: 0.8rem; /* Jarak dikecilkan */
+    padding: 0 1rem 1rem; /* Padding samping dikecilkan */
+  }
+  
+  .photo-item img {
+    height: 160px; /* Tinggi foto dikecilkan di HP agar tidak memenuhi layar */
+  }
+  
+  .photo-item figcaption {
+    font-size: 0.75rem; /* Ukuran teks caption dikecilkan di HP */
+    padding: 0.6rem;
+  }
+}
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.15); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+    .bio-section, .letter { padding: 2rem 1.5rem; }
+    .stats { gap: 1rem; }
+  }
+
+  /* Animasi Kembang Api */
+.firework {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+@keyframes explode {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(30); opacity: 0; }
+}
+
+/* Biar tombol No kelihatan beda pas lari */
+#btn-no {
+  position: relative; /* Gunakan relative agar translate-nya rapi */
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+/* ── CSS KARTU TANDA PERASAAN (KTP) ── */
+
+.ktp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  perspective: 1000px; /* Buat efek 3D pas di-hover */
+  z-index: 10;
+  position: relative;
+}
+
+.ktp-card {
+  width: 100%;
+  max-width: 650px; /* Lebar maksimal KTP */
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(192,57,43,0.15); /* Bayangan lembut blush */
+  padding: 1.5rem;
+  font-family: 'Lato', sans-serif;
+  border: 1px solid rgba(192,57,43,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  overflow: hidden;
+  background-image: radial-gradient(rgba(192,57,43,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.ktp-card:hover {
+  transform: rotateY(5deg) scale(1.02);
+  box-shadow: 0 20px 60px rgba(192,57,43,0.25);
+}
+
+/* Header KTP */
+.ktp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.ktp-logo {
+  font-size: 2.5rem;
+  margin-right: 1rem;
+}
+
+.ktp-title {
+  text-align: center;
+  flex: 1;
+}
+
+.ktp-title h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: #c0392b;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.ktp-title h2 {
+  font-size: 0.8rem;
+  color: var(--soft);
+  margin: 3px 0 0;
+  letter-spacing: 0.5px;
+}
+
+.ktp-motto {
+  font-size: 0.7rem;
+  color: #ff99ac;
+  background: #fff0f3;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+/* Body KTP */
+.ktp-body {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr; /* Kolom kiri lebih lebar */
+  gap: 1.5rem;
+}
+
+/* Kolom Data */
+.ktp-data {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--soft);
+}
+
+.nik-field {
+  margin-bottom: 1rem;
+  background: #fdf6f0;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px dashed rgba(192,57,43,0.1);
+}
+
+.nik-field label {
+  font-weight: bold;
+  color: #c0392b;
+  margin-right: 5px;
+}
+
+.nik-num {
+  font-family: 'Courier New', monospace; /* NIK kayak ketikan mesin tik */
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.data-field {
+  display: grid;
+  grid-template-columns: 110px 1fr; /* Kolom label seragam */
+  margin-bottom: 4px;
+}
+
+.data-field label {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #c9a8b2;
+}
+
+.data-val {
+  color: var(--soft);
+  font-style: italic;
+}
+
+/* Kolom Foto & TTD */
+.ktp-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0.5rem;
+}
+
+.ktp-photo-frame {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%; /* Foto bulat estetik */
+  border: 4px solid #fff;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.ktp-photo-frame:hover {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.ktp-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ktp-ttd {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--soft);
+}
+
+.ttd-sign {
+  font-family: 'Great Vibes', cursive; /* Font tanda tangan romantis */
+  font-size: 2.2rem;
+  color: #c0392b;
+  display: block;
+  margin: 5px 0;
+  line-height: 1;
+}
+
+.ttd-name {
+  font-weight: bold;
+}
+
+.ktp-divider {
+  height: 5px;
+  background: linear-gradient(90deg, #ff4d6d, #fff0f3, #ff4d6d);
+  border-radius: 10px;
+  margin-top: 1.5rem;
+}
+
+/* ── RESPONSIVE KTP (Untuk HP) ── */
+@media (max-width: 600px) {
+  .ktp-card {
+    padding: 1rem;
+  }
+
+  .ktp-header {
+    flex-direction: column;
+    gap: 10px;
+    border: none;
+    margin-bottom: 0.5rem;
+  }
+
+  .ktp-logo {
+    margin-right: 0;
+  }
+
+  .ktp-title h1 {
+    font-size: 1.3rem;
+  }
+
+  .ktp-title h2 {
+    font-size: 0.7rem;
+  }
+
+  .ktp-body {
+    grid-template-columns: 1fr; /* Jadi satu kolom vertikal di HP */
+    gap: 1rem;
+  }
+
+  .ktp-profile {
+    order: -1; /* Foto ditaruh di atas data di HP */
+    padding-top: 0;
+  }
+
+  .ktp-photo-frame {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .data-field {
+    grid-template-columns: 1fr; /* Label di atas nilai di HP */
+    gap: 2px;
+    margin-bottom: 8px;
+  }
+}
